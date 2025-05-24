@@ -12,7 +12,7 @@ public class Negocio {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id_negocio;
+    private Integer idNegocio;
 
     @ManyToOne
     @JoinColumn(name = "id_dueno", referencedColumnName = "id_usuario")
@@ -24,6 +24,8 @@ public class Negocio {
 
     @Column(columnDefinition = "TEXT")
     private String promociones;
+
+    
 
     @Column(name = "estrategia_fidelizacion", columnDefinition = "TEXT")
     private String estrategiaFidelizacion;

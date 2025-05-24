@@ -22,6 +22,7 @@ public class DetallePedido {
     @JoinColumn(name = "id_producto")
     private Producto producto;
 
+
     private Integer cantidad;
 
     private double subtotal; // <- tipo double

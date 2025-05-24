@@ -14,6 +14,10 @@ public class Producto {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id_producto;
 
+    @ManyToOne
+    @JoinColumn(name = "id_negocio")
+    private Negocio negocio;
+
     private String nombre;
 
     private String descripcion;

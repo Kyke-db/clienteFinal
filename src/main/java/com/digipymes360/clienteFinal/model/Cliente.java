@@ -12,9 +12,11 @@ import lombok.*;
 @Setter
 
 public class Cliente {
+    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id_cliente;
+    private Integer id;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_usuario", referencedColumnName = "id_usuario")

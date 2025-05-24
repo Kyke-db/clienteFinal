@@ -18,8 +18,9 @@ public class Pedido {
     private Integer id_pedido;
 
     @ManyToOne
-    @JoinColumn(name = "id_cliente")
+    @JoinColumn(name = "cliente_id")
     private Cliente cliente;
+
 
     private Date fecha;
 
