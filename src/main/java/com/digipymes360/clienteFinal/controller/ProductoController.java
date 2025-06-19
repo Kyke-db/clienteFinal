@@ -41,6 +41,15 @@ public class ProductoController {
         }
     }
 
+    @DeleteMapping("/eliminar/{id}")
+    public ResponseEntity<Void> eliminar(@PathVariable Integer id) {
+        if (productoService.eliminar(id)) {
+            return ResponseEntity.noContent().build();
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
 
     @GetMapping("/buscar")
     public List<Producto> buscar(@RequestParam String nombre) {
