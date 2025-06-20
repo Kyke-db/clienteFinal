@@ -7,11 +7,6 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface ProductoRepository extends JpaRepository<Producto, Integer> {
-
-    List<Producto> findByNombreContainingIgnoreCase(String nombre);
-    List<Producto> findByPrecioBetween(Double min, Double max);
-    List<Producto> findByStockGreaterThan(Integer minStock);
-    List<Producto> findByNegocioIdNegocio(Integer idNegocio);
-
+public interface ProductoRepository extends JpaRepository<Producto, Long> {
+    List<Producto> findByPrecioBetween(Float minimo, Float maximo);
 }

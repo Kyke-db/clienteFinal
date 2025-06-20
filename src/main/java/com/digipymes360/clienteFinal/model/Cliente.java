@@ -16,6 +16,7 @@ public class Cliente {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID_CLIENTE")
     private Integer id;
 
     @OneToOne(cascade = CascadeType.ALL)

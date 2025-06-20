@@ -1,39 +1,46 @@
 package com.digipymes360.clienteFinal.service;
 
-import com.digipymes360.clienteFinal.model.DetallePedido;
+
+import com.digipymes360.clienteFinal.dto.PedidoRequest;
+import com.digipymes360.clienteFinal.model.Cliente;
 import com.digipymes360.clienteFinal.model.Pedido;
+import com.digipymes360.clienteFinal.repository.ClienteRepository;
 import com.digipymes360.clienteFinal.repository.PedidoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
-
-
-import java.sql.Date;
-
-
 @Service
 public class PedidoService {
 
     @Autowired
     private PedidoRepository pedidoRepository;
 
-    public Pedido crearPedido(Pedido pedido) {
-        pedido.setFecha(new Date(0));
-        pedido.setEstado("Pendiente");
+    @Autowired
+    private ClienteRepository clienteRepository;
 
-        double total = 0;
-        for (DetallePedido detalle : pedido.getDetalles()) {
-            double subtotal = detalle.getProducto().getPrecio() * detalle.getCantidad();
-            detalle.setSubtotal(subtotal);
-            detalle.setPedido(pedido);
-            total += subtotal;
-        }
+    public Pedido crearPedido(PedidoRequest request) {
+        Cliente cliente = clienteRepository.findById(request.getClienteId()).orElse(null);
 
-        pedido.setTotal(total);
+        Pedido pedido = new Pedido();
+        pedido.setCliente(cliente);
+        pedido.setTotal(request.getTotal());
+        pedido.setFecha(request.getFecha());
+        pedido.setEstado(request.getEstado());
+        pedido.setMetodo_envio(request.getMetodoEnvio());
+
         return pedidoRepository.save(pedido);
     }
 
-    public List<Pedido> obtenerPedidosPorCliente(Integer idCliente) {
-        return pedidoRepository.findByClienteId(idCliente);
+    public List<Pedido> obtenerTodos() {
+        return pedidoRepository.findAll();
+    }
+
+    public Pedido obtenerPorId(Long id) {
+        return pedidoRepository.findById(id).orElse(null);
+    }
+
+    public void eliminarPedido(Long id) {
+        pedidoRepository.deleteById(id);
     }
 }

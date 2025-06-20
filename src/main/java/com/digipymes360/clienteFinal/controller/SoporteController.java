@@ -1,9 +1,10 @@
 package com.digipymes360.clienteFinal.controller;
 
+
+import com.digipymes360.clienteFinal.dto.SoporteRequest;
 import com.digipymes360.clienteFinal.model.Soporte;
 import com.digipymes360.clienteFinal.service.SoporteService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,28 +16,23 @@ public class SoporteController {
     @Autowired
     private SoporteService soporteService;
 
-    @PostMapping("/enviar")
-    public ResponseEntity<?> enviarSoporte(@RequestBody Soporte soporte) {
-        try {
-            Soporte nuevo = soporteService.enviarMensaje(soporte);
-            return ResponseEntity.ok(nuevo);
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body("Error: " + e.getMessage());
-        }
+    @PostMapping
+    public Soporte crearSoporte(@RequestBody SoporteRequest request) {
+        return soporteService.crearSoporte(request);
     }
 
-    @GetMapping("/mensajes")
-    public ResponseEntity<List<Soporte>> obtenerMensajes() {
-        return ResponseEntity.ok(soporteService.obtenerTodosLosMensajes());
+    @GetMapping
+    public List<Soporte> obtenerTodos() {
+        return soporteService.obtenerTodos();
     }
 
-    @PutMapping("/estado/{id}")
-    public ResponseEntity<?> cambiarEstado(@PathVariable Integer id, @RequestParam String estado) {
-        try {
-            Soporte actualizado = soporteService.cambiarEstado(id, estado);
-            return ResponseEntity.ok(actualizado);
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
-        }
+    @GetMapping("/{id}")
+    public Soporte obtenerPorId(@PathVariable Long id) {
+        return soporteService.obtenerPorId(id);
+    }
+
+    @DeleteMapping("/{id}")
+    public void eliminarSoporte(@PathVariable Long id) {
+        soporteService.eliminarSoporte(id);
     }
 }

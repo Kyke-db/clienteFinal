@@ -1,13 +1,15 @@
 package com.digipymes360.clienteFinal.model;
 
-import jakarta.persistence.*;
-import lombok.*;
 
-import java.util.Date;
-import java.util.List;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "Pedido")
+@Table(name = "pedido")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -15,21 +17,20 @@ public class Pedido {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id_pedido;
+    private Long id_pedido;
 
     @ManyToOne
-    @JoinColumn(name = "cliente_id")
+    @JoinColumn(name = "cliente_id", nullable = true)
     private Cliente cliente;
 
+    @Column(nullable = false)
+    private float total;
 
-    private Date fecha;
+    private LocalDateTime fecha;
 
+    @Column(length = 255)
     private String estado;
 
+    @Column(length = 255)
     private String metodo_envio;
-
-    private double total; // <- tipo double
-
-    @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL)
-    private List<DetallePedido> detalles;
 }

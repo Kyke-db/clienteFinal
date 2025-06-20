@@ -1,36 +1,35 @@
 package com.digipymes360.clienteFinal.model;
 
 
-import java.util.Date;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "Soporte")
+@Table(name = "soporte")
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
-@Getter
-@Setter
-
+@AllArgsConstructor
 public class Soporte {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id_soporte;
+    private Long id_soporte;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "id_cliente", referencedColumnName = "id_usuario")
-    private Cliente id_cliente;
-
-    @Column
-    private String mensaje;
+    @ManyToOne
+    @JoinColumn(name = "id_cliente")
+    private Cliente cliente;
 
     @Column
+    private LocalDateTime fecha;
+
+    @Column(length = 255)
     private String estado;
 
-    @Column
-    private Date fecha;
-
-
+    @Column(length = 255)
+    private String mensaje;
 }
