@@ -1,12 +1,11 @@
 package com.digipymes360.clienteFinal.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import jakarta.persistence.*;
 
 
@@ -20,6 +19,7 @@ public class Producto {
         @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) // Autogenerado en Oracle
     @Column(name = "ID_PRODUCTO")
+    @JsonProperty("id")
     private Long idProducto;
 
     @Column(name = "ID_NEGOCIO", nullable = false)

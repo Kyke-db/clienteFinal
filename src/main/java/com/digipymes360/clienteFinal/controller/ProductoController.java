@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/productos")
+@RequestMapping("/api/v1/producto")
 @Tag(name = "Producto", description = "Endpoints para productos")
 public class ProductoController {
 
