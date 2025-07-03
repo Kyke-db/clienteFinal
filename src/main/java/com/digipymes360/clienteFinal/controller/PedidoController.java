@@ -1,5 +1,6 @@
 package com.digipymes360.clienteFinal.controller;
-
+import org.springframework.hateoas.EntityModel;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
 
 
 import com.digipymes360.clienteFinal.dto.PedidoRequest;
@@ -10,6 +11,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.EntityModel;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -35,9 +37,13 @@ public class PedidoController {
 
     @Operation(summary = "Obtener pedido por id")
     @GetMapping("/{id}")
-    public Pedido obtenerPorId(@PathVariable Long id) {
-        return pedidoService.obtenerPorId(id);
+    public EntityModel<Pedido> getPedidoById(@PathVariable Long id) {
+        Pedido pedido = pedidoService.obtenerPorId(id);
+        return EntityModel.of(pedido,
+            linkTo(methodOn(PedidoController.class).getPedidoById(id)).withSelfRel(),
+            linkTo(PedidoController.class).withRel("all"));
     }
+
 
     @Operation(summary = "eliminar pedido por id")
     @DeleteMapping("/{id}")
