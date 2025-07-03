@@ -11,7 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/producto")
-@Tag(name = "Producto", description = "Endpoints para productos")
+@Tag(name = "Producto", description = "Busqueda de producto")
 public class ProductoController {
 
     private final ProductoService productoService;

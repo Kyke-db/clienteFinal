@@ -7,12 +7,13 @@ import com.digipymes360.clienteFinal.model.Pedido;
 import com.digipymes360.clienteFinal.service.PedidoService;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
+@Tag(name = "Pedidos", description = "CRUD de pedidos")
 @RestController
 @RequestMapping("/api/pedidos")
 public class PedidoController {

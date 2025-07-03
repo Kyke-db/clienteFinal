@@ -14,12 +14,17 @@ import java.util.Optional;
 import com.digipymes360.clienteFinal.model.Usuario;
 import com.digipymes360.clienteFinal.service.UsuarioService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 @RestController
 @RequestMapping("/api/usuarios")
+@Tag(name = "Usuario", description = "Registo y actualizacion de usuarios")
 public class UsuarioController {
     @Autowired
     private UsuarioService usuarioService;
-    //Controlador REST
+    
+    @Operation(summary = "registrar usuario en la base de datos")
     @PostMapping("/registro")
     public ResponseEntity<?> registrarUsuario(@RequestBody Usuario usuario) {
         try {
@@ -30,7 +35,7 @@ public class UsuarioController {
         }
     }
 
-    //agrega un endpoint para actualizar
+    @Operation(summary = "actualizar perfil de usuario")
     @PutMapping("/{id}")
     public ResponseEntity<?> actualizarPerfil(
             @PathVariable Integer id,
@@ -43,6 +48,7 @@ public class UsuarioController {
         }
     }
 
+    @Operation(summary = "buscar usuario por id")
     @GetMapping("/{id}")
     public ResponseEntity<?> obtenerUsuario(@PathVariable Integer id) {
         Optional<Usuario> usuario = usuarioService.obtenerUsuarioPorId(id);
