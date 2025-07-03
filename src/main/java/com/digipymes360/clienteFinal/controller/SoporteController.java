@@ -1,5 +1,6 @@
 package com.digipymes360.clienteFinal.controller;
-
+import org.springframework.hateoas.EntityModel;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
 
 import com.digipymes360.clienteFinal.dto.SoporteRequest;
 import com.digipymes360.clienteFinal.model.Soporte;
@@ -35,8 +36,11 @@ public class SoporteController {
 
     @Operation(summary = "buscar tiket por id") 
     @GetMapping("/{id}")
-    public Soporte obtenerPorId(@PathVariable Long id) {
-        return soporteService.obtenerPorId(id);
+    public EntityModel<Soporte> getSoporteById(@PathVariable Long id) {
+        Soporte soporte = soporteService.obtenerPorId(id);
+        return EntityModel.of(soporte,
+            linkTo(methodOn(SoporteController.class).getSoporteById(id)).withSelfRel(),
+            linkTo(SoporteController.class).withRel("all"));
     }
 
     @Operation(summary = "eliminar tiket")
